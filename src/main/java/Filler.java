@@ -14,7 +14,7 @@ public class Filler {
         fill(arrayElement, newValue, arrayElement.getValue(), new HashSet<>());
     }
 
-    private void fill(ArrayElement element, int newValue, int oldValue, Set<Point> visited) throws PointIsNotWithinArrayException {
+    private void fill(ArrayElement element, double newValue, double oldValue, Set<Point> visited) throws PointIsNotWithinArrayException {
         if (element == null) {
             return;
         }
@@ -26,7 +26,7 @@ public class Filler {
         fillNeighbour(newValue, oldValue, element.getDown(), visited);
     }
 
-    private void fillNeighbour(int newValue, int oldValue, ArrayElement arrayElement, Set<Point> visited) throws PointIsNotWithinArrayException {
+    private void fillNeighbour(double newValue, double oldValue, ArrayElement arrayElement, Set<Point> visited) throws PointIsNotWithinArrayException {
         if (arrayElement != null && arrayElement.getValue() == oldValue && !visited.contains(arrayElement.getPoint())) {
             fill(arrayElement, newValue, oldValue, visited);
         }

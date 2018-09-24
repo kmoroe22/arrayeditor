@@ -8,7 +8,7 @@ public class EditableArrayTest {
 
     @Test
     public void whenAValueIsSetOutsideTheRangeOfTheArrayThenAnExceptionIsThrown() throws PointIsNotWithinArrayException {
-        EditableArray array = new EditableArray(new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        EditableArray array = new EditableArray(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
         expectPointIsNotWithinArrayExceptionFor(array, -1, 0);
         expectPointIsNotWithinArrayExceptionFor(array, 3, 0);
         expectPointIsNotWithinArrayExceptionFor(array, 0, -1);
@@ -17,7 +17,7 @@ public class EditableArrayTest {
 
     @Test
     public void whenAValueIsSetWithinRangeOfArrayValueCanBeRetrievedFromSameIndex() throws PointIsNotWithinArrayException {
-        EditableArray array = new EditableArray(new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        EditableArray array = new EditableArray(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
         expectSetValueToMatchRetrieveValue(array, 99, 0, 0);
         expectSetValueToMatchRetrieveValue(array, 98, 0, 1);
         expectSetValueToMatchRetrieveValue(array, 97, 0, 2);
@@ -31,10 +31,10 @@ public class EditableArrayTest {
 
     @Test
     public void whenArrayStartAndEndAreChangedValuesForNewLocationsAreRetrieved() throws PointIsNotWithinArrayException {
-        EditableArray array = new EditableArray(new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
-        int value1 = array.valueAt(0, 0);
-        int value2 = array.valueAt(1, 0);
-        int value3 = array.valueAt(2, 0);
+        EditableArray array = new EditableArray(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        double value1 = array.valueAt(0, 0);
+        double value2 = array.valueAt(1, 0);
+        double value3 = array.valueAt(2, 0);
 
         Point newStart = new Point(0, 1);
         Point newEnd = new Point(2, 1);
@@ -45,60 +45,60 @@ public class EditableArrayTest {
         Assert.assertNotEquals(value2, array.valueAt(1, 0));
         Assert.assertNotEquals(value3, array.valueAt(2, 0));
 
-        Assert.assertEquals(2, array.valueAt(0, 0));
-        Assert.assertEquals(5, array.valueAt(1, 0));
-        Assert.assertEquals(8, array.valueAt(2, 0));
+        Assert.assertEquals(2, array.valueAt(0, 0), 0);
+        Assert.assertEquals(5, array.valueAt(1, 0), 0);
+        Assert.assertEquals(8, array.valueAt(2, 0), 0);
     }
 
     @Test
     public void whenArrayIsCreatedNodeNeighboursAreLinked() throws PointIsNotWithinArrayException {
-        EditableArray array = new EditableArray(new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        EditableArray array = new EditableArray(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
 
         ArrayElement firstElement = array.elementAt(0, 0);
         Assert.assertNull(firstElement.getLeft());
         Assert.assertNull(firstElement.getUp());
-        Assert.assertEquals(firstElement.getDown().getValue(), 2);
+        Assert.assertEquals(firstElement.getDown().getValue(), 2, 0);
 
         ArrayElement firstMiddle = firstElement.getRight();
         Assert.assertEquals(firstMiddle.getLeft(), firstElement);
         Assert.assertNull(firstMiddle.getUp());
-        Assert.assertEquals(firstMiddle.getDown().getValue(), 5);
+        Assert.assertEquals(firstMiddle.getDown().getValue(), 5, 0);
 
 
         ArrayElement firstLast = firstMiddle.getRight();
         Assert.assertEquals(firstLast.getLeft(), firstMiddle);
         Assert.assertNull(firstLast.getRight());
         Assert.assertNull(firstLast.getUp());
-        Assert.assertEquals(firstLast.getDown().getValue(), 8);
+        Assert.assertEquals(firstLast.getDown().getValue(), 8, 0);
 
         ArrayElement middleFirst = firstElement.getDown();
         Assert.assertEquals(middleFirst.getUp(), firstElement);
         Assert.assertNull(middleFirst.getLeft());
-        Assert.assertEquals(middleFirst.getDown().getValue(), 3);
+        Assert.assertEquals(middleFirst.getDown().getValue(), 3, 0);
 
         ArrayElement middleMiddle = middleFirst.getRight();
         Assert.assertEquals(middleMiddle.getLeft(), middleFirst);
         Assert.assertEquals(middleMiddle.getUp(), firstMiddle);
-        Assert.assertEquals(middleMiddle.getRight().getValue(), 8);
-        Assert.assertEquals(middleMiddle.getDown().getValue(), 6);
+        Assert.assertEquals(middleMiddle.getRight().getValue(), 8, 0);
+        Assert.assertEquals(middleMiddle.getDown().getValue(), 6, 0);
 
         ArrayElement middleLast = middleMiddle.getRight();
         Assert.assertEquals(middleLast.getLeft(), middleMiddle);
         Assert.assertEquals(middleLast.getUp(), firstLast);
-        Assert.assertEquals(middleLast.getDown().getValue(),9);
+        Assert.assertEquals(middleLast.getDown().getValue(),9, 0);
         Assert.assertNull(middleLast.getRight());
 
         ArrayElement lastFirst = middleFirst.getDown();
         Assert.assertNull(lastFirst.getLeft());
         Assert.assertNull(lastFirst.getDown());
         Assert.assertEquals(lastFirst.getUp(), middleFirst);
-        Assert.assertEquals(lastFirst.getRight().getValue(), 6);
+        Assert.assertEquals(lastFirst.getRight().getValue(), 6, 0);
 
         ArrayElement lastMiddle = lastFirst.getRight();
         Assert.assertNull(lastMiddle.getDown());
         Assert.assertEquals(lastMiddle.getLeft(), lastFirst);
         Assert.assertEquals(lastMiddle.getUp(), middleMiddle);
-        Assert.assertEquals(lastMiddle.getRight().getValue(), 9);
+        Assert.assertEquals(lastMiddle.getRight().getValue(), 9, 0);
 
         ArrayElement lastLast = lastMiddle.getRight();
         Assert.assertNull(lastLast.getDown());
@@ -109,24 +109,24 @@ public class EditableArrayTest {
 
     @Test
     public void whenArrayIsResizedTo1DArrayLinksAreReset() throws PointIsNotWithinArrayException {
-        EditableArray array = new EditableArray(new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        EditableArray array = new EditableArray(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
         Point newStart = new Point(0, 1);
         Point newEnd = new Point(2, 1);
 
         array.crop(newStart, newEnd);
 
         ArrayElement firstElement = array.elementAt(0, 0);
-        Assert.assertEquals(firstElement.getValue(), 2);
+        Assert.assertEquals(firstElement.getValue(), 2, 0);
         Assert.assertNull(firstElement.getLeft());
         Assert.assertNull(firstElement.getUp());
         Assert.assertNull(firstElement.getDown());
-        Assert.assertEquals(firstElement.getRight().getValue(), 5);
+        Assert.assertEquals(firstElement.getRight().getValue(), 5, 0);
 
         ArrayElement firstMiddle = firstElement.getRight();
         Assert.assertEquals(firstMiddle.getLeft(), firstElement);
         Assert.assertNull(firstMiddle.getUp());
         Assert.assertNull(firstMiddle.getDown());
-        Assert.assertEquals(firstMiddle.getRight().getValue(), 8);
+        Assert.assertEquals(firstMiddle.getRight().getValue(), 8, 0);
 
 
         ArrayElement firstLast = firstMiddle.getRight();
@@ -139,7 +139,7 @@ public class EditableArrayTest {
 
     @Test
     public void whenArrayIsResizedTo2DArrayLinksAreReset() throws PointIsNotWithinArrayException {
-        EditableArray array = new EditableArray(new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        EditableArray array = new EditableArray(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
         Point newStart = new Point(0, 1);
         Point newEnd = new Point(2, 2);
 
@@ -148,19 +148,19 @@ public class EditableArrayTest {
         ArrayElement firstElement = array.elementAt(0, 0);
         Assert.assertNull(firstElement.getLeft());
         Assert.assertNull(firstElement.getUp());
-        Assert.assertEquals(firstElement.getDown().getValue(), 3);
+        Assert.assertEquals(firstElement.getDown().getValue(), 3, 0);
 
         ArrayElement firstMiddle = firstElement.getRight();
         Assert.assertEquals(firstMiddle.getLeft(), firstElement);
         Assert.assertNull(firstMiddle.getUp());
-        Assert.assertEquals(firstMiddle.getDown().getValue(), 6);
+        Assert.assertEquals(firstMiddle.getDown().getValue(), 6, 0);
 
 
         ArrayElement firstLast = firstMiddle.getRight();
         Assert.assertEquals(firstLast.getLeft(), firstMiddle);
         Assert.assertNull(firstLast.getRight());
         Assert.assertNull(firstLast.getUp());
-        Assert.assertEquals(firstLast.getDown().getValue(), 9);
+        Assert.assertEquals(firstLast.getDown().getValue(), 9, 0);
 
         ArrayElement lastFirst = firstElement.getDown();
         Assert.assertEquals(lastFirst.getUp(), firstElement);
@@ -170,7 +170,7 @@ public class EditableArrayTest {
         ArrayElement lastMiddle = lastFirst.getRight();
         Assert.assertEquals(lastMiddle.getLeft(), lastFirst);
         Assert.assertEquals(lastMiddle.getUp(), firstMiddle);
-        Assert.assertEquals(lastMiddle.getRight().getValue(), 9);
+        Assert.assertEquals(lastMiddle.getRight().getValue(), 9, 0);
         Assert.assertNull(lastMiddle.getDown());
 
         ArrayElement lastLast = lastMiddle.getRight();
@@ -183,10 +183,10 @@ public class EditableArrayTest {
     }
 
 
-    private void expectSetValueToMatchRetrieveValue(EditableArray array, int valueToSetTo, int x, int y) throws PointIsNotWithinArrayException {
+    private void expectSetValueToMatchRetrieveValue(EditableArray array, double valueToSetTo, int x, int y) throws PointIsNotWithinArrayException {
         array.setValue(valueToSetTo, x, y);
-        int value = array.valueAt(x, y);
-        Assert.assertEquals(value, valueToSetTo);
+        double value = array.valueAt(x, y);
+        Assert.assertEquals(value, valueToSetTo, 0);
     }
 
     private void expectPointIsNotWithinArrayExceptionFor(EditableArray array, int x, int y) {

@@ -1,21 +1,22 @@
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class EditableArray {
 
     private ArrayElement[][] sourceArray;
-    //SortedMap
-    private Map<Integer, List<ArrayElement>> elementsByValue;
 
-    public EditableArray(int[][] original) {
+    //SortedMap
+    private SortedMap<Double, List<ArrayElement>> elementsByValue;
+
+    public EditableArray(double[][] original) {
         assert original.length > 0;
-        for (int[] yAxisArray : original) {
+        for (double[] yAxisArray : original) {
             assert yAxisArray.length > 0;
         }
         sourceArray = new ArrayElement[original.length][];
-        elementsByValue = new HashMap<>();
+        elementsByValue = new TreeMap<>();
         for (int i = 0; i < original.length; i++) {
             sourceArray[i] = new ArrayElement[original[i].length];
             for (int j = 0; j < original[i].length; j++) {
@@ -32,7 +33,7 @@ public class EditableArray {
         }
     }
 
-    void setValue(int value, int x, int y) throws PointIsNotWithinArrayException {
+    void setValue(double value, int x, int y) throws PointIsNotWithinArrayException {
         if (!isWithinArray(x, y)) {
             throw new PointIsNotWithinArrayException();
         }
@@ -42,12 +43,12 @@ public class EditableArray {
         elementsByValue.computeIfAbsent(arrayElement.getValue(), integer -> new LinkedList<>()).add(arrayElement);
     }
 
-    List<ArrayElement> findByValue(int value) {
+    List<ArrayElement> findByValue(double value) {
         List<ArrayElement> values = elementsByValue.getOrDefault(value, new LinkedList<>());
         return new LinkedList<>(values);
     }
 
-    int valueAt(int x, int y) throws PointIsNotWithinArrayException {
+    double valueAt(int x, int y) throws PointIsNotWithinArrayException {
         if (!isWithinArray(x, y)) {
             throw new PointIsNotWithinArrayException();
         }
@@ -61,7 +62,7 @@ public class EditableArray {
         return sourceArray[x][y];
     }
 
-    void setValue(int value, Point point) throws PointIsNotWithinArrayException {
+    void setValue(double value, Point point) throws PointIsNotWithinArrayException {
         setValue(value, point.getX(), point.getY());
     }
 
@@ -127,5 +128,9 @@ public class EditableArray {
             }
         }
         this.sourceArray = newArray;
+    }
+
+    public SortedMap<Double, List<ArrayElement>> getElementsByValue() {
+        return elementsByValue;
     }
 }

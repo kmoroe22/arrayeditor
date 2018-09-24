@@ -2,19 +2,19 @@ import java.util.Objects;
 
 public class ArrayElement {
 
-    private int value;
+    private double value;
     private Point point;
     private ArrayElement left;
     private ArrayElement right;
     private ArrayElement up;
     private ArrayElement down;
 
-    public ArrayElement(int value, int x, int y) {
+    public ArrayElement(double value, int x, int y) {
         this.value = value;
         this.point = new Point(x, y);
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 
@@ -22,7 +22,7 @@ public class ArrayElement {
         return point;
     }
 
-    public void setValue(int value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
