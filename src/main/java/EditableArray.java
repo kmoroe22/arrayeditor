@@ -21,12 +21,18 @@ public class EditableArray {
             for (int j = 0; j < original[i].length; j++) {
                 ArrayElement arrayElement = new ArrayElement(original[i][j], i, j);
                 sourceArray[i][j] = arrayElement;
-
+                elementsByValue.computeIfAbsent(arrayElement.getValue(), integer -> new LinkedList<>()).add(arrayElement);
+                if (i > 0) {
+                    arrayElement.linkLeft(sourceArray[i - 1][j]);
+                }
+                if (j > 0) {
+                    arrayElement.linkUp(sourceArray[i][j - 1]);
+                }
             }
         }
     }
 
-    public void setValue(int value, int x, int y) throws PointIsNotWithinArrayException {
+    void setValue(int value, int x, int y) throws PointIsNotWithinArrayException {
         if (!isWithinArray(x, y)) {
             throw new PointIsNotWithinArrayException();
         }
@@ -36,23 +42,26 @@ public class EditableArray {
         elementsByValue.computeIfAbsent(arrayElement.getValue(), integer -> new LinkedList<>()).add(arrayElement);
     }
 
-    public List<ArrayElement> findByValue(int value) {
+    List<ArrayElement> findByValue(int value) {
         List<ArrayElement> values = elementsByValue.getOrDefault(value, new LinkedList<>());
         return new LinkedList<>(values);
     }
 
-    public int valueAt(int x, int y) throws PointIsNotWithinArrayException {
+    int valueAt(int x, int y) throws PointIsNotWithinArrayException {
         if (!isWithinArray(x, y)) {
             throw new PointIsNotWithinArrayException();
         }
         return sourceArray[x][y].getValue();
     }
 
-    public int valueAt(Point point) throws PointIsNotWithinArrayException {
-        return valueAt(point.getX(), point.getY());
+    ArrayElement elementAt(int x, int y) throws PointIsNotWithinArrayException {
+        if (!isWithinArray(x, y)) {
+            throw new PointIsNotWithinArrayException();
+        }
+        return sourceArray[x][y];
     }
 
-    public void setValue(int value, Point point) throws PointIsNotWithinArrayException {
+    void setValue(int value, Point point) throws PointIsNotWithinArrayException {
         setValue(value, point.getX(), point.getY());
     }
 
@@ -76,7 +85,7 @@ public class EditableArray {
         return true;
     }
 
-    public void crop(Point start, Point end) throws PointIsNotWithinArrayException {
+    void crop(Point start, Point end) throws PointIsNotWithinArrayException {
         if (!isWithinArray(start) || !isWithinArray(end)) {
             throw new PointIsNotWithinArrayException();
         }
@@ -98,41 +107,25 @@ public class EditableArray {
                 ArrayElement arrayElement = sourceArray[i][j];
                 newArray[newArrayX][newArrayY] = arrayElement;
                 elementsByValue.computeIfAbsent(arrayElement.getValue(), integer -> new LinkedList<>()).add(arrayElement);
+                if (newArrayX == 0) {
+                    arrayElement.setLeft(null);
+                } else {
+                    arrayElement.linkLeft(newArray[newArrayX - 1][newArrayY]);
+                }
+                if (newArrayX == newArray.length - 1) {
+                    arrayElement.setRight(null);
+                }
+
+                if (newArrayY == 0) {
+                    arrayElement.setUp(null);
+                } else {
+                    arrayElement.linkUp(newArray[newArrayX][newArrayY - 1]);
+                }
+                if (newArrayY == newArray[newArrayX].length - 1) {
+                    arrayElement.setDown(null);
+                }
             }
         }
         this.sourceArray = newArray;
     }
-
-    //    public Optional<Integer> getLeftNeighbour(int x, int y) {
-//        try {
-//            return Optional.of(valueAt(x - 1, y));
-//        } catch (PointIsNotWithinArrayException e) {
-//            return Optional.empty();
-//        }
-//    }
-//
-//    public Optional<Integer> getRightNeighbour(int x, int y) {
-//        try {
-//            return Optional.of(valueAt(x + 1, y));
-//        } catch (PointIsNotWithinArrayException e) {
-//            return Optional.empty();
-//        }
-//    }
-//
-//    public Optional<Integer> getUpperNeighbour(int x, int y) {
-//        try {
-//            return Optional.of(valueAt(x, y - 1));
-//        } catch (PointIsNotWithinArrayException e) {
-//            return Optional.empty();
-//        }
-//    }
-//
-//    public Optional<Integer> getLowerNeighbour(int x, int y) {
-//        try {
-//            return Optional.of(valueAt(x, y + 1));
-//        } catch (PointIsNotWithinArrayException e) {
-//            return Optional.empty();
-//        }
-//    }
-
 }

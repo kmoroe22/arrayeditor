@@ -3,12 +3,11 @@ import java.util.Objects;
 public class ArrayElement {
 
     private int value;
-
     private Point point;
-//    private ArrayElement left;
-//    private ArrayElement right;
-//    private ArrayElement up;
-//    private ArrayElement down;
+    private ArrayElement left;
+    private ArrayElement right;
+    private ArrayElement up;
+    private ArrayElement down;
 
     public ArrayElement(int value, int x, int y) {
         this.value = value;
@@ -25,6 +24,49 @@ public class ArrayElement {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+
+    public void setRight(ArrayElement right) {
+        this.right = right;
+    }
+
+    public void setLeft(ArrayElement left) {
+        this.left = left;
+    }
+
+    public void setDown(ArrayElement down) {
+        this.down = down;
+    }
+
+    public void setUp(ArrayElement up) {
+        this.up = up;
+    }
+
+    public void linkLeft(ArrayElement left) {
+        this.setLeft(left);
+        left.setRight(this);
+    }
+
+    public void linkUp(ArrayElement up) {
+        this.setUp(up);
+        up.setDown(this);
+    }
+
+    public ArrayElement getLeft() {
+        return left;
+    }
+
+    public ArrayElement getRight() {
+        return right;
+    }
+
+    public ArrayElement getUp() {
+        return up;
+    }
+
+    public ArrayElement getDown() {
+        return down;
     }
 
     @Override
