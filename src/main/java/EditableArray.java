@@ -6,8 +6,6 @@ import java.util.TreeMap;
 public class EditableArray {
 
     private ArrayElement[][] sourceArray;
-
-    //SortedMap
     private SortedMap<Double, List<ArrayElement>> elementsByValue;
 
     public EditableArray(double[][] original) {
@@ -86,7 +84,7 @@ public class EditableArray {
         return true;
     }
 
-    void crop(Point start, Point end) throws PointIsNotWithinArrayException {
+    public void crop(Point start, Point end) throws PointIsNotWithinArrayException {
         if (!isWithinArray(start) || !isWithinArray(end)) {
             throw new PointIsNotWithinArrayException();
         }
@@ -132,5 +130,9 @@ public class EditableArray {
 
     public SortedMap<Double, List<ArrayElement>> getElementsByValue() {
         return elementsByValue;
+    }
+
+    public ArrayElement[][] getSourceArray() {
+        return sourceArray;
     }
 }
