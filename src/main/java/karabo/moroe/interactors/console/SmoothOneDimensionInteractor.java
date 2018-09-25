@@ -22,7 +22,7 @@ public class SmoothOneDimensionInteractor extends ConsoleOneDimensionInteractor<
             return;
         }
 
-        editor.smooth(maximum, maximum);
+        editor.smooth(minimum, maximum);
         System.out.println(renderer.render());
     }
 }

@@ -15,9 +15,9 @@ public class ReplacerOneDimensionInteractor extends ConsoleOneDimensionInteracto
     @Override
     public void interact() {
         System.out.println("Enter value to replace");
-        int valueToReplace = scanner.nextInt();
+        double valueToReplace = scanner.nextDouble();
         System.out.println("Enter value to replace with");
-        int newValue = scanner.nextInt();
+        double newValue = scanner.nextDouble();
         editor.replace(valueToReplace, newValue);
         System.out.println(renderer.render());
     }

@@ -10,16 +10,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    /*
-    1. replace
-    2. crop
-    3. fill
-    4. smooth
-    5. blur
-    6. edge detection
-    7. export
-    8. exit
-     */
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {

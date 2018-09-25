@@ -14,7 +14,7 @@ public class Replacer {
         this.array = array;
     }
 
-    public void replace(int valueToReplace, int newValue) {
+    public void replace(double valueToReplace, double newValue) {
         List<ArrayElement> values = array.findByValue(valueToReplace);
         for (ArrayElement element : values) {
             try {
