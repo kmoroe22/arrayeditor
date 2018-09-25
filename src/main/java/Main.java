@@ -30,7 +30,7 @@ public class Main {
         EditableArray editableArray = new EditableArray(new double[][]{array});
         System.out.println(new EditableArrayRenderer(editableArray).render());
         ArrayEditor arrayEditor = new ArrayEditor(editableArray);
-        Map<Integer, ConsoleOneDimensionInteractor> interactors = intializeInteractors(arrayEditor);
+        Map<Integer, ConsoleOneDimensionInteractor> interactors = initializeInteractors(arrayEditor);
 
         while (true) {
             System.out.print("1. replace\n" +
@@ -52,7 +52,7 @@ public class Main {
         }
     }
 
-    private static Map<Integer, ConsoleOneDimensionInteractor> intializeInteractors(ArrayEditor editor) {
+    private static Map<Integer, ConsoleOneDimensionInteractor> initializeInteractors(ArrayEditor editor) {
         Map<Integer, ConsoleOneDimensionInteractor> interactors = new HashMap<>();
         interactors.put(1, new ReplacerOneDimensionInteractor(editor.getRenderer(), editor.getReplacer()));
         interactors.put(2, new CropOneDimensionInteractor(editor.getRenderer(), editor.getCropper()));

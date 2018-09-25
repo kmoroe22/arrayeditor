@@ -29,15 +29,15 @@ public class ArrayElement {
     }
 
 
-    public void setRight(ArrayElement right) {
+    void setRight(ArrayElement right) {
         this.right = right;
     }
 
-    public void setLeft(ArrayElement left) {
+    void setLeft(ArrayElement left) {
         this.left = left;
     }
 
-    public void setDown(ArrayElement down) {
+    void setDown(ArrayElement down) {
         this.down = down;
     }
 
@@ -45,12 +45,12 @@ public class ArrayElement {
         this.up = up;
     }
 
-    public void linkLeft(ArrayElement left) {
+    void linkLeft(ArrayElement left) {
         this.setLeft(left);
         left.setRight(this);
     }
 
-    public void linkUp(ArrayElement up) {
+    void linkUp(ArrayElement up) {
         this.setUp(up);
         up.setDown(this);
     }
