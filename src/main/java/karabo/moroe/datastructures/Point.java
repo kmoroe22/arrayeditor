@@ -1,3 +1,5 @@
+package karabo.moroe.datastructures;
+
 import java.util.Objects;
 
 public class Point implements Comparable<Point> {
@@ -19,8 +21,8 @@ public class Point implements Comparable<Point> {
     }
 
     public void move(int x, int y) {
-        this.x = this.x + x;
-        this.y = this.y + y;
+        this.x = x;
+        this.y = y;
     }
 
     @Override

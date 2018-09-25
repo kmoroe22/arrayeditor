@@ -1,3 +1,5 @@
+package karabo.moroe.datastructures;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedMap;
@@ -31,7 +33,7 @@ public class EditableArray {
         }
     }
 
-    void setValue(double value, int x, int y) throws PointIsNotWithinArrayException {
+    public void setValue(double value, int x, int y) throws PointIsNotWithinArrayException {
         if (!isWithinArray(x, y)) {
             throw new PointIsNotWithinArrayException();
         }
@@ -41,26 +43,26 @@ public class EditableArray {
         elementsByValue.computeIfAbsent(arrayElement.getValue(), integer -> new LinkedList<>()).add(arrayElement);
     }
 
-    List<ArrayElement> findByValue(double value) {
+    public List<ArrayElement> findByValue(double value) {
         List<ArrayElement> values = elementsByValue.getOrDefault(value, new LinkedList<>());
         return new LinkedList<>(values);
     }
 
-    double valueAt(int x, int y) throws PointIsNotWithinArrayException {
+    public double valueAt(int x, int y) throws PointIsNotWithinArrayException {
         if (!isWithinArray(x, y)) {
             throw new PointIsNotWithinArrayException();
         }
         return sourceArray[x][y].getValue();
     }
 
-    ArrayElement elementAt(int x, int y) throws PointIsNotWithinArrayException {
+    public ArrayElement elementAt(int x, int y) throws PointIsNotWithinArrayException {
         if (!isWithinArray(x, y)) {
             throw new PointIsNotWithinArrayException();
         }
         return sourceArray[x][y];
     }
 
-    void setValue(double value, Point point) throws PointIsNotWithinArrayException {
+    public void setValue(double value, Point point) throws PointIsNotWithinArrayException {
         setValue(value, point.getX(), point.getY());
     }
 
@@ -105,6 +107,7 @@ public class EditableArray {
                 int newArrayY = j - start.getY();
                 ArrayElement arrayElement = sourceArray[i][j];
                 newArray[newArrayX][newArrayY] = arrayElement;
+                arrayElement.getPoint().move(newArrayX, newArrayY);
                 elementsByValue.computeIfAbsent(arrayElement.getValue(), integer -> new LinkedList<>()).add(arrayElement);
                 if (newArrayX == 0) {
                     arrayElement.setLeft(null);

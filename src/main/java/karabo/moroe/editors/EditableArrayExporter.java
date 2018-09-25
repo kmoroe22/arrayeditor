@@ -1,3 +1,8 @@
+package karabo.moroe.editors;
+
+import karabo.moroe.datastructures.ArrayElement;
+import karabo.moroe.datastructures.EditableArray;
+
 public class EditableArrayExporter {
 
     private EditableArray array;
@@ -18,4 +23,6 @@ public class EditableArrayExporter {
         }
         return exportedArray;
     }
+
+
 }

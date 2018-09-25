@@ -1,3 +1,8 @@
+package karabo.moroe.editors;
+
+import karabo.moroe.datastructures.ArrayElement;
+import karabo.moroe.datastructures.EditableArray;
+
 import java.util.Objects;
 import java.util.stream.Stream;
 

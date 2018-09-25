@@ -1,3 +1,5 @@
+import karabo.moroe.datastructures.EditableArray;
+import karabo.moroe.editors.EdgeDetector;
 import org.junit.Assert;
 import org.junit.Test;
 

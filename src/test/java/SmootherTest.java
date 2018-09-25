@@ -1,3 +1,6 @@
+import karabo.moroe.datastructures.EditableArray;
+import karabo.moroe.datastructures.PointIsNotWithinArrayException;
+import karabo.moroe.editors.Smoother;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,3 +1,5 @@
+package karabo.moroe.datastructures;
+
 import java.util.Objects;
 
 public class ArrayElement {

@@ -1,3 +1,4 @@
+import karabo.moroe.datastructures.Point;
 import org.junit.Assert;
 import org.junit.Test;
 

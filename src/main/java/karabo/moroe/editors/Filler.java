@@ -1,3 +1,10 @@
+package karabo.moroe.editors;
+
+import karabo.moroe.datastructures.ArrayElement;
+import karabo.moroe.datastructures.EditableArray;
+import karabo.moroe.datastructures.Point;
+import karabo.moroe.datastructures.PointIsNotWithinArrayException;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +16,7 @@ public class Filler {
         this.array = array;
     }
 
-    public void fill(int newValue, int fromX, int fromY) throws PointIsNotWithinArrayException {
+    public void fill(double newValue, int fromX, int fromY) throws PointIsNotWithinArrayException {
         ArrayElement arrayElement = array.elementAt(fromX, fromY);
         fill(arrayElement, newValue, arrayElement.getValue(), new HashSet<>());
     }

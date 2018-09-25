@@ -1,3 +1,9 @@
+package karabo.moroe.editors;
+
+import karabo.moroe.datastructures.ArrayElement;
+import karabo.moroe.datastructures.EditableArray;
+import karabo.moroe.datastructures.PointIsNotWithinArrayException;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -10,7 +16,7 @@ public class Blurrer {
         this.array = array;
     }
 
-    public void blur() throws PointIsNotWithinArrayException {
+    public void blur() {
         List<ArrayElement> allElements = array
                 .getElementsByValue()
                 .values()
@@ -18,7 +24,11 @@ public class Blurrer {
                 .sorted(Comparator.comparing(ArrayElement::getPoint)).collect(Collectors.toList());
         for (ArrayElement element : allElements) {
             double neighbourAverage = findAverage(element);
-            array.setValue(neighbourAverage, element.getPoint());
+            try {
+                array.setValue(neighbourAverage, element.getPoint());
+            } catch (PointIsNotWithinArrayException e) {
+                throw new RuntimeException("Tried to edit a value that is out of bounds of array");
+            }
         }
     }
 

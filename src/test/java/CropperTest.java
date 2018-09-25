@@ -1,3 +1,7 @@
+import karabo.moroe.datastructures.EditableArray;
+import karabo.moroe.datastructures.Point;
+import karabo.moroe.datastructures.PointIsNotWithinArrayException;
+import karabo.moroe.editors.Cropper;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,6 +22,23 @@ public class CropperTest {
         Assert.assertEquals(5, array.valueAt(1, 1), 0);
         Assert.assertEquals(7, array.valueAt(2, 0), 0);
         Assert.assertEquals(8, array.valueAt(2, 1), 0);
+    }
+
+    @Test
+    public void whenArrayIsCroppedArrayElementPointsHaveCorrectValues() throws PointIsNotWithinArrayException {
+        EditableArray array = new EditableArray(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        Cropper cropper = new Cropper(array);
+
+        cropper.crop(1, 0, 1, 2);
+
+        Assert.assertEquals(4, array.valueAt(0, 0), 0);
+        Assert.assertEquals(5, array.valueAt(0, 1), 0);
+        Assert.assertEquals(6, array.valueAt(0, 2), 0);
+
+
+        Assert.assertEquals(new Point(0, 0), array.elementAt(0, 0).getPoint());
+        Assert.assertEquals(new Point(0, 1), array.elementAt(0, 1).getPoint());
+        Assert.assertEquals(new Point(0, 2), array.elementAt(0, 2).getPoint());
     }
 
     @Test
